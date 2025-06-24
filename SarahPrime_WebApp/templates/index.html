@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sarah Prime</title>
+</head>
+<body>
+    <h1>Talk to Sarah Prime</h1>
+    <input type="text" id="user-input" placeholder="Say something..." />
+    <button onclick="sendMessage()">Send</button>
+    <div id="response"></div>
+
+    <script>
+        async function sendMessage() {
+            const message = document.getElementById("user-input").value;
+            const res = await fetch("/chat", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({message})
+            });
+            const data = await res.json();
+            document.getElementById("response").innerText = "Sarah: " + data.reply;
+        }
+    </script>
+</body>
+</html>
