@@ -1,29 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Sarah Prime</title>
-    <script>
-        async function sendMessage() {
-            const message = document.getElementById("message").value;
-            const response = await fetch("/chat", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({message})
-            });
-            const data = await response.json();
-            document.getElementById("chat").innerHTML += `<p><strong>You:</strong> ${message}</p>`;
-            document.getElementById("chat").innerHTML += `<p><strong>Sarah:</strong> ${data.response}</p>`;
-            document.getElementById("message").value = "";
-        }
-    </script>
 </head>
 <body>
-    <h1>Chat with Sarah Prime</h1>
-    <div id="chat" style="height:300px; overflow:auto; border:1px solid #ccc; padding:10px;"></div>
-    <input type="text" id="message" placeholder="Say something to Sarah" 
-/>
+    <h1>Talk to Sarah</h1>
+    <input id="userInput" type="text" placeholder="Type your message here" />
     <button onclick="sendMessage()">Send</button>
+    <div id="chatBox"></div>
+
+    <script>
+        async function sendMessage() {
+            const message = document.getElementById("userInput").value;
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message })
+            });
+            const data = await response.json();
+            document.getElementById("chatBox").innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+            document.getElementById("chatBox").innerHTML += `<p><strong>Sarah:</strong> ${data.response}</p>`;
+            document.getElementById("userInput").value = "";
+        }
+    </script>
 </body>
 </html>
 
