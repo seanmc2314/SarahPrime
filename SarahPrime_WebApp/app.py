@@ -7,7 +7,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
-openai.api_key = os.getenv("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")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.route('/')
 def home():
